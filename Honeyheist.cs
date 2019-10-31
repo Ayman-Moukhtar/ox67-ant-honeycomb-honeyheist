@@ -7,27 +7,6 @@ namespace Honeycomb
     public class MainClass
     {
         #region Data Structures
-        private static readonly Func<Coordinates, Coordinates>[] _directions =
-            {
-                // Right
-                (Coordinates coordinates) => new Coordinates(coordinates.X, coordinates.Y + 1, coordinates.Z - 1),
-
-                // Left
-                (Coordinates coordinates) => new Coordinates(coordinates.X, coordinates.Y - 1, coordinates.Z + 1),
-
-                // Down Left
-                (Coordinates coordinates) => new Coordinates(coordinates.X + 1, coordinates.Y - 1, coordinates.Z),
-
-                // Down Right
-                (Coordinates coordinates) => new Coordinates(coordinates.X + 1, coordinates.Y, coordinates.Z - 1),
-
-                // Up Left
-                (Coordinates coordinates) => new Coordinates(coordinates.X - 1, coordinates.Y, coordinates.Z + 1),
-
-                // Up Right
-                (Coordinates coordinates) => new Coordinates(coordinates.X - 1, coordinates.Y + 1, coordinates.Z)
-            };
-
         public class Coordinates
         {
             public Coordinates(int X, int Y, int Z)
@@ -56,6 +35,27 @@ namespace Honeycomb
 
         public class Honeycomb
         {
+            private readonly Func<Coordinates, Coordinates>[] _directions =
+            {
+                // Right
+                (Coordinates coordinates) => new Coordinates(coordinates.X, coordinates.Y + 1, coordinates.Z - 1),
+
+                // Left
+                (Coordinates coordinates) => new Coordinates(coordinates.X, coordinates.Y - 1, coordinates.Z + 1),
+
+                // Down Left
+                (Coordinates coordinates) => new Coordinates(coordinates.X + 1, coordinates.Y - 1, coordinates.Z),
+
+                // Down Right
+                (Coordinates coordinates) => new Coordinates(coordinates.X + 1, coordinates.Y, coordinates.Z - 1),
+
+                // Up Left
+                (Coordinates coordinates) => new Coordinates(coordinates.X - 1, coordinates.Y, coordinates.Z + 1),
+
+                // Up Right
+                (Coordinates coordinates) => new Coordinates(coordinates.X - 1, coordinates.Y + 1, coordinates.Z)
+            };
+
             public Honeycomb()
             {
                 Cells = new Dictionary<string, Cell>();
