@@ -160,15 +160,15 @@ namespace Honeycomb
 
         public static Honeycomb BuildHoneycomb(int numberOfCellsOnEdge, int startingCellId, int targetCellId, HashSet<int> blockedCellsIdsHash)
         {
-            var N = numberOfCellsOnEdge - 1; // To map number of cells on edge to Radius, starting from the center
+            var stepsFromCenter = numberOfCellsOnEdge - 1;
             var currentCellId = 1;
             var cells = new Dictionary<string, Cell>();
             Cell start = null;
             Cell end = null;
 
-            for (var x = -N; x <= N; x += 1)
+            for (var x = -stepsFromCenter; x <= stepsFromCenter; x += 1)
             {
-                for (var y = Math.Max(-N, -x - N); y <= Math.Min(N, -x + N); y += 1)
+                for (var y = Math.Max(-stepsFromCenter, -x - stepsFromCenter); y <= Math.Min(stepsFromCenter, -x + stepsFromCenter); y += 1)
                 {
                     var z = -x - y;
                     var coordinates = new Coordinates(x, y, z);
