@@ -107,13 +107,13 @@ namespace Honeycomb
             var honeycomb = BuildHoneycomb(numberOfCellsOnEdge, startingCellId, targetCellId, blockedCellsIdsHash);
         
             Cell current = null;
-        
+
+            honeycomb.Start.IsExplored = true;
             queue.Enqueue(honeycomb.Start);
 
             while (queue.Any())
             {
                 current = queue.Dequeue();
-                current.IsExplored = true;
 
                 // If reached destination
                 if (current == honeycomb.End)
