@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -64,6 +64,26 @@ namespace Honeycomb
             public Dictionary<string, Cell> Cells { get; set; }
             public Cell Start { get; set; }
             public Cell End { get; set; }
+
+            public List<Cell> GetUnexploredUnblockedNeighbors(Cell current)
+            {
+                var cells = new List<Cell>();
+
+                foreach (var direction in _directions)
+                {
+                    var coordinates = direction(current.Coordinates).ToString();
+
+                    if (!Cells.ContainsKey(coordinates)) { continue; }
+
+                    var cell = Cells[coordinates];
+
+                    if (cell.IsExplored || cell.IsBlocked) { continue; }
+
+                    cells.Add(Cells[coordinates]);
+                }
+
+                return cells;
+            }
         }
         #endregion
 
@@ -101,7 +121,7 @@ namespace Honeycomb
                     break;
                 }
 
-                GetUnexploredUnblockedNeighbors(current, honeycomb.Cells)
+                honeycomb.GetUnexploredUnblockedNeighbors(current)
                     .ForEach(cell =>
                     {
                         if (!queue.Contains(cell))
@@ -136,26 +156,6 @@ namespace Honeycomb
             }
 
             return steps;
-        }
-
-        public static List<Cell> GetUnexploredUnblockedNeighbors(Cell current, Dictionary<string, Cell> AllCells)
-        { 
-            var cells = new List<Cell>();
-
-            foreach (var direction in _directions)
-            {
-                var coordinates = direction(current.Coordinates).ToString();
-
-                if (!AllCells.ContainsKey(coordinates)) { continue; }
-
-                var cell = AllCells[coordinates];
-
-                if (cell.IsExplored || cell.IsBlocked) { continue; }
-
-                cells.Add(AllCells[coordinates]);
-            }
-
-            return cells;
         }
 
         public static Honeycomb BuildHoneycomb(int numberOfCellsOnEdge, int startingCellId, int targetCellId, HashSet<int> blockedCellsIdsHash)
